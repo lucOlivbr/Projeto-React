@@ -3,33 +3,20 @@ import AddTask from "./components/AddTask";
 import Tasks from "./components/Tasks";
 import { v4 } from "uuid";
 import Title from "./components/Title";
+import { loadTaskState, saveTasks } from "./taskStorage";
 
 
 //parei nesse momento do video https://youtu.be/2RWsLmu8yVc?t=7369
 function App() {
-  const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem("tasks")) || []
-  );
+  const [initialStorage] = useState(() => loadTaskState());
+  const [tasks, setTasks] = useState(initialStorage.tasks);
+  const [storageWarning, setStorageWarning] = useState(initialStorage.warning);
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  useEffect(() => {
-    const fetchTasks = async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/todos?_limit=10",
-        {
-          method: `GET`,
-        }
-      );
-
-      const data = await response.json();
-
-      setTasks(data);
-    };
-    // fetchTasks();
-  }, []);
+    // Preserve invalid stored data instead of replacing it with an empty list.
+    if (!initialStorage.persistenceEnabled) return;
+    setStorageWarning(saveTasks(tasks) ? null : "unavailable");
+  }, [tasks, initialStorage.persistenceEnabled]);
 
   function onTaskClick(taskId) {
     const newTasks = tasks.map((task) => {
@@ -64,7 +51,13 @@ function App() {
         <Title>
           Gerenciador de Tarefas
         </Title>
-
+        {storageWarning && (
+          <p role="alert" className="rounded bg-amber-100 p-3 text-sm text-amber-950">
+            {storageWarning === "invalid"
+              ? "Os dados salvos não puderam ser lidos e foram preservados. Novas tarefas ficarão apenas nesta sessão."
+              : "Não foi possível salvar no navegador. As alterações podem ficar apenas nesta sessão."}
+          </p>
+        )}
 
         <AddTask onAddTaskSubmit={onAddTaskSubmit} />
         <Tasks

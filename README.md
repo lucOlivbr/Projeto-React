@@ -51,9 +51,23 @@ Esse roteiro é uma proposta de conferência manual; esta atualização de docum
 
 ## Escopo e próximos passos
 
-Os dados ficam no navegador utilizado. Não há backend, autenticação ou sincronização entre dispositivos. O exemplo de consulta à JSONPlaceholder em `App.jsx` está desativado e não é uma integração ativa da aplicação.
+Os dados ficam no navegador utilizado. Não há backend, autenticação ou sincronização entre dispositivos. O exemplo desativado de JSONPlaceholder foi removido; a aplicação não consulta um backend.
 
-A persistência ainda precisa de tratamento para conteúdo inválido ou indisponibilidade do armazenamento. A versão atual não publica uma suíte de testes automatizados.
+O armazenamento é validado antes da renderização. Se o JSON estiver corrompido ou não contiver uma lista válida, a aplicação abre com uma lista vazia e um aviso, preservando o conteúdo anterior. As tarefas novas ficam apenas na sessão nesse caso. Falhas de acesso ou falta de espaço também exibem aviso, sem interromper o uso da tela.
+
+Para recuperar dados antigos, preserve uma cópia do valor da chave `tasks` antes de corrigi-lo no navegador. A aplicação não apaga nem redefine esse conteúdo automaticamente.
+
+## Testes de regressão
+
+Com Node.js 20 ou superior:
+
+```bash
+npm test
+npm run lint
+npm run build
+```
+
+Os testes usam `node:test`, sem biblioteca adicional, e cobrem dados válidos, JSON corrompido, formato inesperado, preservação do conteúdo e falhas de leitura/escrita. Eles validam a camada de armazenamento; não substituem a conferência manual das telas.
 
 ## Contexto de estudo
 
