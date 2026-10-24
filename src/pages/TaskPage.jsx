@@ -8,11 +8,12 @@ function TaskPage() {
   const title = searchParams.get("title");
   const description = searchParams.get("description");
   return (
-    <div className="h-screen w-screen bg-slate-500 p-6">
-      <div className="w-[500px] mx-auto space-y-4">
+    <div className="min-h-screen w-full bg-slate-500 p-6">
+      <div className="w-full max-w-[500px] mx-auto space-y-4">
         <div className="flex justify-center relative mb-6 text-slate-100">
           <button
-            onClick={() => navigate(-1)}
+            aria-label="Voltar para tarefas"
+            onClick={() => navigate("/")}
             className="absolute left-0 top-0 bottom-0"
           >
             <ChevronLeftIcon />

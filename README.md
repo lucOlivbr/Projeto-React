@@ -80,3 +80,5 @@ O código foi desenvolvido durante o aprendizado de React. Há uma referência a
 20 testes da camada de armazenamento e filtros; lint e compilação de produção. O CI executa as mesmas verificações. Os testes unitários não cobrem interação real com a tela.
 
 As dependências foram atualizadas, incluindo Vite 7, React Router 7 e UUID 11. A auditoria de produção não encontrou vulnerabilidades conhecidas no momento da verificação. A auditoria completa ainda aponta três alertas moderados na cadeia de desenvolvimento do Tailwind 3/PostCSS; migrar para Tailwind 4 exige revisão visual e fica como próximo ajuste, sem aplicar correções forçadas.
+
+Conferência manual no navegador: cadastro por Enter, busca por descrição, conclusão, filtro de pendentes, navegação de detalhes, retorno à lista e persistência após recarregar.
