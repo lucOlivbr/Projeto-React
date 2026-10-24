@@ -4,21 +4,23 @@ Aplicação de estudo para cadastrar, concluir, excluir e consultar detalhes de 
 
 ## Funcionalidades
 
-- Cadastro de título e descrição, com verificação de campos vazios.
+- Cadastro por formulário com rótulos, envio por Enter, limites de tamanho e validação de espaços em branco.
+- Busca por título/descrição e filtros por situação, sem alterar a lista persistida.
+- Contador de pendências e nomes acessíveis para os botões de detalhes e exclusão.
 - Marcação de tarefas concluídas e exclusão de tarefas.
 - Tela de detalhes com navegação pelo React Router.
 - Persistência da lista no `localStorage` do navegador, na chave `tasks`.
 
 ## Tecnologias
 
-React 18, JavaScript/JSX, Vite, React Router, Tailwind CSS, UUID e Lucide React.
+React 18, JavaScript/JSX, Vite 7, React Router 7, Tailwind CSS 3, UUID 11 e Lucide React.
 
 ## Executar localmente
 
-Instale o Node.js com npm. Na pasta do projeto:
+Instale Node.js 22.12+ com npm. Na pasta do projeto:
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -47,7 +49,7 @@ O formulário chama a função de cadastro em `App`, que cria um identificador c
 4. Volte para a lista, exclua a tarefa e atualize a página.
 5. Tente cadastrar com um dos campos vazio e observe a validação.
 
-Esse roteiro é uma proposta de conferência manual; esta atualização de documentação não constitui um novo teste de execução.
+O roteiro orienta a conferência manual e complementa os testes automatizados.
 
 ## Escopo e próximos passos
 
@@ -59,7 +61,7 @@ Para recuperar dados antigos, preserve uma cópia do valor da chave `tasks` ante
 
 ## Testes de regressão
 
-Com Node.js 20 ou superior:
+Com Node.js 22.12 ou superior:
 
 ```bash
 npm test
@@ -72,3 +74,11 @@ Os testes usam `node:test`, sem biblioteca adicional, e cobrem dados válidos, J
 ## Contexto de estudo
 
 O código foi desenvolvido durante o aprendizado de React. Há uma referência ao [vídeo de estudo](https://youtu.be/2RWsLmu8yVc?t=7369) em `App.jsx`. O objetivo do portfólio é compreender o fluxo, explicar as decisões e evoluir a aplicação com melhorias próprias e revisadas.
+
+## Verificações desta evolução
+
+20 testes da camada de armazenamento e filtros; lint e compilação de produção. O CI executa as mesmas verificações. Os testes unitários não cobrem interação real com a tela.
+
+As dependências foram atualizadas, incluindo Vite 7, React Router 7 e UUID 11. A auditoria de produção não encontrou vulnerabilidades conhecidas no momento da verificação. A auditoria completa ainda aponta três alertas moderados na cadeia de desenvolvimento do Tailwind 3/PostCSS; migrar para Tailwind 4 exige revisão visual e fica como próximo ajuste, sem aplicar correções forçadas.
+
+Conferência manual no navegador: cadastro por Enter, busca por descrição, conclusão, filtro de pendentes, navegação de detalhes, retorno à lista e persistência após recarregar.
