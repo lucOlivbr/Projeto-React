@@ -17,6 +17,7 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}) {
       {tasks.map((task) => (
         <li key={task.id} className="flex gap-2">
           <button
+            aria-pressed={task.isCompleted}
             onClick={() => onTaskClick(task.id)}
             className={`bg-slate-400 text-left w-full text-white p-2 rounded-md ${
               task.isCompleted && "line-through"
@@ -24,12 +25,12 @@ function Tasks({tasks, onTaskClick, onDeleteTaskClick}) {
           >
             {task.title}
           </button>
-          <Button  onClick={() => onSeeDetailsClick(task) }>
+          <Button aria-label={"Ver detalhes de " + task.title} onClick={() => onSeeDetailsClick(task) }>
             <ChevronRightIcon />
           </Button>
           
           
-          <Button onClick={() => onDeleteTaskClick(task.id)}>
+          <Button aria-label={"Excluir " + task.title} onClick={() => onDeleteTaskClick(task.id)}>
             <TrashIcon />
           </Button>
         </li>
